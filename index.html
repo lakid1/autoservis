@@ -120,7 +120,7 @@
 
                 "ajax": "db_connect.php",
 
-                //"lengthMenu": [[2, 4, 10, -1], [2, 4, 10, "All"]],
+                "lengthMenu": [[2, 4, 10, -1], [2, 4, 10, "All"]],
 
                 "columns": [
                     //{ "data": "zakaznik_id" },
@@ -128,7 +128,30 @@
                     { "data": "prijmeni" },
                     { "data": "telefon" },
                     { "data": "email" },
-                ]
+                ],
+                "language": {
+                    "decimal": "",
+                    "emptyTable": "Žádná data",
+                    "info": "Zobrazuji _START_ z _END_ z _TOTAL_ záznamů",
+                    "infoEmpty": "Zobrazeno 0 z 0 z 0 záznamů",
+                    "infoFiltered": "(filtered from _MAX_ total entries)",
+                    "infoPostFix": "",
+                    "thousands": ".",
+                    "lengthMenu": "Zobrazit _MENU_ záznamů",
+                    "loadingRecords": "Načítání...",
+                    "search": "Vyhledat:",
+                    "zeroRecords": "Žádná schoda",
+                    "paginate": {
+                        "first": "První",
+                        "last": "Poslední",
+                        "next": "Následující",
+                        "previous": "Předchozí"
+                    },
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    }
+                }
 
 
             });
