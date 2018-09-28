@@ -12,11 +12,11 @@ function randomPassword()
 
     }
 
-    $heslo = md5(implode($pass));
-
+    $heslomd5 = md5(implode($pass));
+    $heslo = implode($pass);
     require "db_connect.php";
 
-    $check = "SELECT * FROM provozovatel WHERE password LIKE '$heslo'";
+    $check = "SELECT * FROM provozovatel WHERE password LIKE '$heslomd5'";
 
     if ($conn->query($check)->num_rows > 0) {
         randomPassword();
@@ -48,13 +48,14 @@ if ($_POST) {
     $ulice = $_POST['ulice'];
     $cislo_popisne = $_POST['cislo_popisne'];
     $psc = $_POST['psc'];
-    $heslo = md5(randomPassword());
+    $heslo = randomPassword();
+    $hesloMd5 = md5($heslo);
 
     $check = "SELECT * FROM adresa WHERE ulice LIKE '$ulice' AND cislo_popisne LIKE '$cislo_popisne' AND mesto LIKE '$mesto' AND psc LIKE '$psc'";
     if ($conn->query($check)->num_rows > 0) {
         $query = "SELECT adresa_id FROM adresa WHERE ulice LIKE '$ulice' AND cislo_popisne LIKE '$cislo_popisne' AND mesto LIKE '$mesto' AND psc LIKE '$psc'";
         if ($result = $conn->query($query)) {
-            while ($row = $result->fetch_row()) {
+            while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
                 $last_id = $row['adresa_id'];
             }
         } else {
@@ -71,7 +72,7 @@ if ($_POST) {
         }
     }
 
-    $query = "INSERT INTO provozovatel(firma,jmeno,prijmeni,telefon,email,password,adresa_id) VALUES('$firma','$jmeno','$prijmeni','$telefon','$email','$heslo','$last_id')";
+    $query = "INSERT INTO provozovatel(firma,jmeno,prijmeni,telefon,email,password,adresa_id) VALUES('$firma','$jmeno','$prijmeni','$telefon','$email','$hesloMd5','$last_id')";
 
     if ($conn->query($query) === true) {
         require "mailSender/secure_email_code.php";
@@ -81,5 +82,5 @@ if ($_POST) {
 
     $conn->close();
 
-    //header("Location: provozovatele.html");
+    header("Location: provozovatele.html");
 }

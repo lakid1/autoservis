@@ -2,7 +2,7 @@
 <?php
 
 $subject = "Registrace v Autoservise";
-$message = "Dobrý den \n zasíláme vám vaše přihlašovací údaje k aplikaci Váš Autoservis. \n Přihlašovací jméno: '$email' \n Heslo: '$heslo' \n \n Přejeme hezký zbytek dne.";
+$message = "<p>Dobrý den, </p> <p>zasíláme vám vaše přihlašovací údaje k aplikaci Váš Autoservis.</p> <p>Přihlašovací jméno: $email </p> <p> Heslo: $heslo </p><p>Přejeme hezký zbytek dne.</p>";
 
 // Message lines should not exceed 70 characters (PHP rule), so wrap it
 $message = wordwrap($message, 70);
