@@ -42,40 +42,50 @@
     <div class="container">
         <div class="row mt-5">
             <div class="col-md-12">
-                <form action="#" class="col-md-12" method="POST">
+                <form action="db_add_provozovatel.php" class="col-md-12" method="POST">
                     <div class="form-row">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
+                            <label for="firma">Firma</label>
+                            <input name="firma" type="text" class="form-control" id="firma" placeholder="Firma">
+                        </div>
+                        <div class="form-group col-md-2">
                             <label for="firs_name">Jméno</label>
-                            <input type="text" class="form-control" id="firs_name" placeholder="Jméno" required>
+                            <input name="first_name" type="text" class="form-control" id="firs_name" placeholder="Jméno"
+                                required>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <label for="last_name">Příjmení</label>
-                            <input type="text" class="form-control" id="last_name" placeholder="Příjmení" required>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="telefon">Telefon</label>
-                            <input type="text" class="form-control" id="telefon" placeholder="Telefon" required>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="email">E-mail</label>
-                            <input type="email" class="form-control" id="email" placeholder="E-mail" required>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="mesto">Město</label>
-                            <input type="text" class="form-control" id="mesto" placeholder="Město" required>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="ulice">Ulice</label>
-                            <input type="text" class="form-control" id="ulice" placeholder="Ulice" required>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="cislo_popisne">Číslo popisné</label>
-                            <input type="text" class="form-control" id="cislo_popisne" placeholder="Číslo popisné"
+                            <input name="last_name" type="text" class="form-control" id="last_name" placeholder="Příjmení"
                                 required>
                         </div>
                         <div class="form-group col-md-3">
+                            <label for="telefon">Telefon</label>
+                            <input name="telefon" type="text" class="form-control" id="telefon" placeholder="Telefon"
+                                required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="email">E-mail</label>
+                            <input name="email" type="email" class="form-control" id="email" placeholder="E-mail"
+                                required>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="mesto">Město</label>
+                            <input name="mesto" type="text" class="form-control" id="mesto" placeholder="Město"
+                                required>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="ulice">Ulice</label>
+                            <input name="ulice" type="text" class="form-control" id="ulice" placeholder="Ulice"
+                                required>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="cislo_popisne">Číslo popisné</label>
+                            <input name="cislo_popisne" type="text" class="form-control" id="cislo_popisne" placeholder="Číslo popisné"
+                                required>
+                        </div>
+                        <div class="form-group col-md-2">
                             <label for="psc">PSC</label>
-                            <input type="text" class="form-control" id="psc" placeholder="PSC" required>
+                            <input name="psc" type="text" class="form-control" id="psc" placeholder="PSC" required>
                         </div>
 
                     </div>
@@ -113,7 +123,7 @@
 
             var table = $('#myTable').DataTable({
                 "columns": [
-                   
+
                     { "data": "jmeno" },
                     { "data": "telefon" },
                     { "data": "email" },

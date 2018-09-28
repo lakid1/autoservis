@@ -41,47 +41,24 @@
 
 
 
+
     <div class="container">
         <div class="row mt-5">
-            <div class="col-md-12">
-                <button id="addPr" class="btn btn-danger "><span><i class="fas fa-plus-circle"></i></span> Přidat
-                    prohlídku</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="addModal" class="container" style="display: none;">
-        <div class="row mt-3">
             <form class="col-md-12">
                 <div class="form-row">
-                    <div class="form-group col-md-3">
-                        <label for="Specifikace">Specifikace</label>
-                        <select name="specifikace" class="custom-select">
-                            <option selected>Vyber specifikaci</option>
-                            <option value="1">Garanční prohlídka</option>
-                            <option value="">Výměna pneumatik</option>
-                            <option value="0">Jiné</option>
-                        </select>
-                    </div>
+
                     <div class="form-group col-md-3">
                         <label for="inputPassword4">Datum</label>
                         <input type="date" class="form-control" id="Datum" placeholder="Datum" required>
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="inputPassword4">Cena</label>
-                        <input type="text" class="form-control" id="Cena" placeholder="Cena">
-                    </div>
-                    <div class="form-group col-md-3">
                         <label for="vozidlo">Vybrat vozidlo</label>
-                        <input type="button" class="form-control btn btn-info" id="vozidlo" value="SPZ">
+                        <input type="button" class="form-control btn btn-info" id="vozidlo" value="Žádné">
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="popis">Technický popis</label>
-                        <textarea class="form-control" name="popis_t" id="popis" rows="3"></textarea>
-                    </div>
+
                     <input id="spz" type="text" style="display:none">
                 </div>
-                <button type="submit" class="btn btn-dark">Potvrdit</button>
+                <button class="btn btn-danger "><span><i class="fas fa-plus-circle"></i></span> Přidat prohlídku</button>
             </form>
         </div>
     </div>
@@ -100,10 +77,10 @@
                     <table id="spzTable" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Extn.</th>
-                                <th>Pass</th>
+                                <th>Provozovatel</th>
+                                <th>Značka</th>
+                                <th>Model</th>
+                                <th>SPZ</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -133,10 +110,11 @@
                 <table id="myTable" class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Extn.</th>
-                            <th>Pass</th>
+                            <th>Jméno</th>
+                            <th>Auto</th>
+                            <th>Datum</th>
+                            <th>Telefon</th>
+                            <th>Stav</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -152,7 +130,7 @@
             var table = $('#myTable').DataTable({
                 "ajax": "",
                 "columns": [
-                    //{ "data": "zakaznik_id" },
+                    { "data": "zakaznik_id" },
                     { "data": "jmeno" },
                     { "data": "prijmeni" },
                     { "data": "telefon" },
