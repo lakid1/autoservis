@@ -44,6 +44,16 @@ if ($_POST) {
     $prijmeni = $_POST['last_name'];
     $telefon = $_POST['telefon'];
     $email = $_POST['email'];
+
+    $check = "SELECT * FROM provozovatel WHERE email LIKE '$email';";
+    if ($conn->query($check)->num_rows > 0) {
+        session_start();
+        $info = "Provozovatel s emailovou adresou: $email už existuje !!!";
+        $_SESSION['info'] = $info;
+        header("Location: provozovatele.php");
+        exit();
+    }
+
     $mesto = $_POST['mesto'];
     $ulice = $_POST['ulice'];
     $cislo_popisne = $_POST['cislo_popisne'];
@@ -82,5 +92,5 @@ if ($_POST) {
 
     $conn->close();
 
-    header("Location: provozovatele.html");
+    header("Location: provozovatele.php");
 }

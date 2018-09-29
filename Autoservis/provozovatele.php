@@ -40,6 +40,22 @@
     </nav>
 
     <div class="container">
+        <?php
+            session_start();
+
+            if (isset($_SESSION['info'])) {
+
+                $info = $_SESSION['info'];
+
+                echo "<div class='mt-2 alert alert-danger alert-dismissible fade show' role='alert'> $info <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                        </button>
+                                </div>";
+
+                unset($_SESSION['info']);
+            }
+
+        ?>
         <div class="row mt-5">
             <div class="col-md-12">
                 <form action="db_add_provozovatel.php" class="col-md-12" method="POST">
@@ -69,11 +85,6 @@
                                 required>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="mesto">Město</label>
-                            <input name="mesto" type="text" class="form-control" id="mesto" placeholder="Město"
-                                required>
-                        </div>
-                        <div class="form-group col-md-2">
                             <label for="ulice">Ulice</label>
                             <input name="ulice" type="text" class="form-control" id="ulice" placeholder="Ulice"
                                 required>
@@ -81,6 +92,11 @@
                         <div class="form-group col-md-2">
                             <label for="cislo_popisne">Číslo popisné</label>
                             <input name="cislo_popisne" type="text" class="form-control" id="cislo_popisne" placeholder="Číslo popisné"
+                                required>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="mesto">Město</label>
+                            <input name="mesto" type="text" class="form-control" id="mesto" placeholder="Město"
                                 required>
                         </div>
                         <div class="form-group col-md-2">
@@ -102,12 +118,13 @@
                 <table id="myTable" class="table table-striped table-bordered">
                     <thead>
                         <tr>
+                            <th>Firma</th>
                             <th>Jméno</th>
                             <th>Telefon</th>
                             <th>E-mail</th>
-                            <th>Město</th>
                             <th>Ulice</th>
                             <th>Číslo popisné</th>
+                            <th>Město</th>
                             <th>PSČ</th>
                         </tr>
                     </thead>
@@ -122,15 +139,15 @@
         $(document).ready(function () {
 
             var table = $('#myTable').DataTable({
-                "ajax": "",
+                "ajax": "db_select_provozovatele.php",
                 "columns": [
-
-                    { "data": "jmeno" },
+                    { "data": "firma" },
+                    { "data": "provozovatel" },
                     { "data": "telefon" },
                     { "data": "email" },
-                    { "data": "mesto" },
                     { "data": "ulice" },
                     { "data": "cislo_popisne" },
+                    { "data": "mesto" },
                     { "data": "psc" },
                 ],
                 "language": {

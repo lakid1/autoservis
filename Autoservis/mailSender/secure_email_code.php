@@ -21,7 +21,7 @@ $mail->Password = 'Lokomotiva+99';                           // SMTP password
 $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
 $mail->Port =465;                                    // TCP port to connect to
 
-$mail->setFrom('m.smidl.st@spseiostrava.cz');
+$mail->setFrom('m.smidl.st@spseiostrava.cz',"Registrace");
 $mail->addAddress($email);     // Add a recipient
 
 $mail->isHTML(true);                                  // Set email format to HTML
