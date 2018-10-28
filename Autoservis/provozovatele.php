@@ -28,10 +28,10 @@
                         <a class="nav-link" href="#">Historie</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Auta</a>
+                        <a class="nav-link" href="auta.php">Auta</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="provozovatele.html">Provozovatelé</a>
+                        <a class="nav-link" href="provozovatele.php">Provozovatelé</a>
                     </li>
                 </ul>
 
