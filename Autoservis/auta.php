@@ -207,7 +207,7 @@
                     "lengthMenu": "Zobrazit _MENU_ záznamů",
                     "loadingRecords": "Načítání...",
                     "search": "Vyhledat:",
-                    "zeroRecords": "Žádná schoda",
+                    "zeroRecords": "Žádná shoda",
                     "paginate": {
                         "first": "První",
                         "last": "Poslední",
@@ -242,7 +242,7 @@
                     $('#ok').click(function () {
 
 
-                        //alert(row.data().provozovatel_id)
+                        //alert(row.data().provozovatel_id);
                         var selected = row.data().provozovatel_id;
                         $('#provozovatel').val(selected);
                         var selectedName = row.data().provozovatel;
@@ -276,7 +276,7 @@
                     "lengthMenu": "Zobrazit _MENU_ záznamů",
                     "loadingRecords": "Načítání...",
                     "search": "Vyhledat:",
-                    "zeroRecords": "Žádná schoda",
+                    "zeroRecords": "Žádná shoda",
                     "paginate": {
                         "first": "První",
                         "last": "Poslední",

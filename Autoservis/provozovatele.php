@@ -161,7 +161,7 @@
                     "lengthMenu": "Zobrazit _MENU_ záznamů",
                     "loadingRecords": "Načítání...",
                     "search": "Vyhledat:",
-                    "zeroRecords": "Žádná schoda",
+                    "zeroRecords": "Žádná shoda",
                     "paginate": {
                         "first": "První",
                         "last": "Poslední",
