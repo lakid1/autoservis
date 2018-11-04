@@ -1,7 +1,7 @@
 <?php
 require "db_connect.php";
 
-$query = "SELECT datum, CONCAT(jmeno,' ', prijmeni) AS provozovatel,CONCAT(znacka,' ', model)AS auto,
+$query = "SELECT servisni_objednavka_id,datum, CONCAT(jmeno,' ', prijmeni) AS provozovatel,CONCAT(znacka,' ', model)AS auto,
 stav FROM servisni_objednavka INNER JOIN provozovatel USING(provozovatel_id)
 INNER JOIN auto USING(auto_id) WHERE datum <= LOCALTIME() ORDER BY datum DESC ";
 

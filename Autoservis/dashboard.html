@@ -139,11 +139,13 @@
         </div>
     </div>
 
+    <!-- Confirmation -->
     <div class="container">
         <div class="row mt-3">
             <div class="col-md-12">
                 <form id="updateStav" action="updateStav.php" method="POST">
                     <input name="servisni_objednavka_id" id="objID" type="text" style="display: none !important;">
+                    <input name="from" type="text" value="dashboard" style="display: none !important;">
                     <button type="button" id="storno" class="btn btn-danger">Storno</button>
                 </form>
             </div>
@@ -169,182 +171,164 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <script type="text/javascript" src="DataTables/datatables.min.js"></script>
-        <script>
-            $(document).ready(function () {
-
-                /* $('#updateStav').submit(function (event) {
-                     if ($('#myTable tbody tr').hasClass('selected')) {
-                         $('#confirm').modal('show');
-                         var tr = table.$('tr.selected').closest('tr');
-                         var row = table.row(tr);
-                         var text = row.data().provozovatel + " " + row.data().auto + " " + row.data().datum;
-                         $('#objednavka').text(text);
-                         if (('#cancelStorno').click()) {
-                             event.preventDefault();
-                         }
- 
-                     } else {
-                         event.preventDefault();
-                     }
- 
- 
- 
- 
- 
-                 });*/
-
-                $('#storno').click(function () {
-                    if ($('#myTable tbody tr').hasClass('selected')) {
-                        $('#confirm').modal('show');
-                        var tr = table.$('tr.selected').closest('tr');
-                        var row = table.row(tr);
-                        var text =  row.data().datum + " " + row.data().auto + " "+ row.data().provozovatel;
-                        $('#objID').val(row.data().servisni_objednavka_id);
-                        $('#objednavka').text(text);
-
-
-                    }
-
-                });
-
-                $('#confirmStorno').click(function () {
-
-                    $('#updateStav').trigger('submit');
-                });
+    <script type="text/javascript" src="DataTables/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
 
 
 
-
-                $('#formS').submit(function (event) {
-                    if ($('#vozidlo').val() === "Žádné") {
-                        $('#info').show().delay(3000).fadeOut(1000);
-                        event.preventDefault();
-                    }
-                });
-                var table = $('#myTable').DataTable({
-                    "ajax": "db_select_dashboard.php",
-                    "order": [0, 'DESC'],
-                    "columns": [
-                        { "data": "datum" },
-                        { "data": "auto" },
-                        { "data": "provozovatel" },
-                        { "data": "telefon" },
-                        { "data": "stav" },
-                    ],
-                    "language": {
-                        "decimal": "",
-                        "emptyTable": "Žádná data",
-                        "info": "Zobrazeno _START_ z _END_ z _TOTAL_ záznamů",
-                        "infoEmpty": "Zobrazeno 0 z 0 z 0 záznamů",
-                        "infoFiltered": "(filtered from _MAX_ total entries)",
-                        "infoPostFix": "",
-                        "thousands": ".",
-                        "lengthMenu": "Zobrazit _MENU_ záznamů",
-                        "loadingRecords": "Načítání...",
-                        "search": "Vyhledat:",
-                        "zeroRecords": "Žádná shoda",
-                        "paginate": {
-                            "first": "První",
-                            "last": "Poslední",
-                            "next": "Následující",
-                            "previous": "Předchozí"
-                        },
-                        "aria": {
-                            "sortAscending": ": activate to sort column ascending",
-                            "sortDescending": ": activate to sort column descending"
-                        }
-                    }
-
-                });
-
-                $('#myTable tbody').on('click', 'tr', function () {
-                    if ($(this).hasClass('selected')) {
-
-                        $(this).removeClass('selected');
-
-                    }
-                    else {
-                        table.$('tr.selected').removeClass('selected');
-                        $(this).addClass('selected');
-                        var tr = $(this).closest('tr');
-                        var row = table.row(tr);
+            $('#storno').click(function () {
+                if ($('#myTable tbody tr').hasClass('selected')) {
+                    $('#confirm').modal('show');
+                    var tr = table.$('tr.selected').closest('tr');
+                    var row = table.row(tr);
+                    var text = row.data().datum + " " + row.data().auto + " " + row.data().provozovatel;
+                    $('#objID').val(row.data().servisni_objednavka_id);
+                    $('#objednavka').text(text);
 
 
-                    }
-
-                });
-
-
-                $('#vozidlo').click(function () {
-                    $('#myModal').modal('show');
-                });
-
-                var spzTable = $('#spzTable').DataTable({
-                    "ajax": "db_select_auta_dash.php",
-                    "columns": [
-                        { "data": "provozovatel" },
-                        { "data": "znacka" },
-                        { "data": "model" },
-                        { "data": "spz" },
-                    ],
-                    "language": {
-                        "decimal": "",
-                        "emptyTable": "Žádná data",
-                        "info": "Zobrazeno _START_ z _END_ z _TOTAL_ záznamů",
-                        "infoEmpty": "Zobrazeno 0 z 0 z 0 záznamů",
-                        "infoFiltered": "(filtered from _MAX_ total entries)",
-                        "infoPostFix": "",
-                        "thousands": ".",
-                        "lengthMenu": "Zobrazit _MENU_ záznamů",
-                        "loadingRecords": "Načítání...",
-                        "search": "Vyhledat:",
-                        "zeroRecords": "Žádná shoda",
-                        "paginate": {
-                            "first": "První",
-                            "last": "Poslední",
-                            "next": "Následující",
-                            "previous": "Předchozí"
-                        },
-                        "aria": {
-                            "sortAscending": ": activate to sort column ascending",
-                            "sortDescending": ": activate to sort column descending"
-                        }
-                    }
-                });
-
-                $('#spzTable tbody').on('click', 'tr', function () {
-                    if ($(this).hasClass('selected')) {
-
-                        $(this).removeClass('selected');
-
-                    }
-                    else {
-                        spzTable.$('tr.selected').removeClass('selected');
-                        $(this).addClass('selected');
-                        var tr = $(this).closest('tr');
-                        var row = spzTable.row(tr);
-
-                        $('#ok').click(function () {
-
-                            // Vybrání řádku provozovatel + auto
-                            var provozovatel = row.data().provozovatel_id
-                            $('#provozovatel').val(provozovatel);
-                            var auto = row.data().auto_id;
-                            $('#auto').val(auto);
-                            var nazev = row.data().znacka + " " + row.data().model;
-                            $('#vozidlo').val(nazev);
-
-                            $('#myModal').modal('hide');
-                        });
-                    }
-
-
-                });
+                }
 
             });
-        </script>
+
+            $('#confirmStorno').click(function () {
+
+                $('#updateStav').trigger('submit');
+            });
+
+
+
+
+            $('#formS').submit(function (event) {
+                if ($('#vozidlo').val() === "Žádné") {
+                    $('#info').show().delay(3000).fadeOut(1000);
+                    event.preventDefault();
+                }
+            });
+            var table = $('#myTable').DataTable({
+                "ajax": "db_select_dashboard.php",
+                "order": [0, 'DESC'],
+                "columns": [
+                    { "data": "datum" },
+                    { "data": "auto" },
+                    { "data": "provozovatel" },
+                    { "data": "telefon" },
+                    { "data": "stav" },
+                ],
+                "language": {
+                    "decimal": "",
+                    "emptyTable": "Žádná data",
+                    "info": "Zobrazeno _START_ z _END_ z _TOTAL_ záznamů",
+                    "infoEmpty": "Zobrazeno 0 z 0 z 0 záznamů",
+                    "infoFiltered": "(filtered from _MAX_ total entries)",
+                    "infoPostFix": "",
+                    "thousands": ".",
+                    "lengthMenu": "Zobrazit _MENU_ záznamů",
+                    "loadingRecords": "Načítání...",
+                    "search": "Vyhledat:",
+                    "zeroRecords": "Žádná shoda",
+                    "paginate": {
+                        "first": "První",
+                        "last": "Poslední",
+                        "next": "Následující",
+                        "previous": "Předchozí"
+                    },
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    }
+                }
+
+            });
+
+            $('#myTable tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+
+                    $(this).removeClass('selected');
+
+                }
+                else {
+                    table.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                    var tr = $(this).closest('tr');
+                    var row = table.row(tr);
+
+
+                }
+
+            });
+
+
+            $('#vozidlo').click(function () {
+                $('#myModal').modal('show');
+            });
+
+            var spzTable = $('#spzTable').DataTable({
+                "ajax": "db_select_auta_dash.php",
+                "columns": [
+                    { "data": "provozovatel" },
+                    { "data": "znacka" },
+                    { "data": "model" },
+                    { "data": "spz" },
+                ],
+                "language": {
+                    "decimal": "",
+                    "emptyTable": "Žádná data",
+                    "info": "Zobrazeno _START_ z _END_ z _TOTAL_ záznamů",
+                    "infoEmpty": "Zobrazeno 0 z 0 z 0 záznamů",
+                    "infoFiltered": "(filtered from _MAX_ total entries)",
+                    "infoPostFix": "",
+                    "thousands": ".",
+                    "lengthMenu": "Zobrazit _MENU_ záznamů",
+                    "loadingRecords": "Načítání...",
+                    "search": "Vyhledat:",
+                    "zeroRecords": "Žádná shoda",
+                    "paginate": {
+                        "first": "První",
+                        "last": "Poslední",
+                        "next": "Následující",
+                        "previous": "Předchozí"
+                    },
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    }
+                }
+            });
+
+            $('#spzTable tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+
+                    $(this).removeClass('selected');
+
+                }
+                else {
+                    spzTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                    var tr = $(this).closest('tr');
+                    var row = spzTable.row(tr);
+
+                    $('#ok').click(function () {
+
+                        // Vybrání řádku provozovatel + auto
+                        var provozovatel = row.data().provozovatel_id
+                        $('#provozovatel').val(provozovatel);
+                        var auto = row.data().auto_id;
+                        $('#auto').val(auto);
+                        var nazev = row.data().znacka + " " + row.data().model;
+                        $('#vozidlo').val(nazev);
+
+                        $('#myModal').modal('hide');
+                    });
+                }
+
+
+            });
+
+        });
+    </script>
 </body>
 
 </html>
