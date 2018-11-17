@@ -14,7 +14,7 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="dashboard.html"><span><i class="fa fa-home"></i></span> DashBoard</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -24,17 +24,21 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Historie</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="objednavky.php">Servis</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="auta.php">Auta</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="provozovatele.php">Provozovatelé</a>
                     </li>
-                </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="historie.html">Historie</a>
+                    </li>
 
+                </ul>
+                <span><a href="nastaveni.html"><i class="fas fa-sliders-h fa-lg" style="color: white;"></i></a></span>
             </div>
         </div>
     </nav>
@@ -80,7 +84,7 @@
         </div>
     </div>
 
-    <form id="updateStav" action="updateStav.php" method="POST">
+    <form id="updateStav" action="db_updateStav.php" method="POST">
         <input name="servisni_objednavka_id" id="objID" type="text" style="display: none !important;">
         <input name="from" type="text" value="objednavky" style="display: none !important;">
         <input type="text" name="akce" id="akce" style="display: none !important;">

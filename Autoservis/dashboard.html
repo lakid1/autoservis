@@ -24,7 +24,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Historie</a>
+                        <a class="nav-link" href="objednavky.php">Servis</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="auta.php">Auta</a>
@@ -32,8 +32,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="provozovatele.php">Provozovatelé</a>
                     </li>
-                </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="historie.html">Historie</a>
+                    </li>
 
+                </ul>
+                <span><a href="nastaveni.html"><i class="fas fa-sliders-h fa-lg" style="color: white;"></i></a></span>
             </div>
         </div>
     </nav>
@@ -62,8 +66,8 @@
                         <input type="button" class="form-control btn btn-info" id="vozidlo" value="Žádné">
                     </div>
 
-                    <input name="auto" id="auto" type="text" style="display:none !important;" required>
-                    <input name="provozovatel" id="provozovatel" type="text" style="display:none !important; " required>
+                    <input name="auto" id="auto" type="text" style="display:none !important;">
+                    <input name="provozovatel" id="provozovatel" type="text" style="display:none !important; ">
                 </div>
                 <button type="submit" id="send" class="btn btn-danger "><span><i class="fas fa-plus-circle"></i></span>
                     Přidat
@@ -143,9 +147,10 @@
     <div class="container">
         <div class="row mt-3">
             <div class="col-md-12">
-                <form id="updateStav" action="updateStav.php" method="POST">
+                <form id="updateStav" action="db_updateStav.php" method="POST">
                     <input name="servisni_objednavka_id" id="objID" type="text" style="display: none !important;">
                     <input name="from" type="text" value="dashboard" style="display: none !important;">
+                    <input name="akce" type="text" value="storno" style="display: none !important;">
                     <button type="button" id="storno" class="btn btn-danger">Storno</button>
                 </form>
             </div>
@@ -178,6 +183,8 @@
         $(document).ready(function () {
 
 
+            document.getElementById('myTable').style.cursor = 'pointer';
+            document.getElementById('spzTable').style.cursor = 'pointer';
 
             $('#storno').click(function () {
                 if ($('#myTable tbody tr').hasClass('selected')) {
@@ -209,7 +216,8 @@
             });
             var table = $('#myTable').DataTable({
                 "ajax": "db_select_dashboard.php",
-                "order": [0, 'DESC'],
+
+                "order": [0, "asc"],
                 "columns": [
                     { "data": "datum" },
                     { "data": "auto" },
@@ -297,12 +305,18 @@
                     }
                 }
             });
-
+            //
             $('#spzTable tbody').on('click', 'tr', function () {
+
                 if ($(this).hasClass('selected')) {
 
                     $(this).removeClass('selected');
 
+                    $('#ok').click(function () {
+                        $('#provozovatel').val(null);
+                        $('#vozidlo').val("Žádné");
+
+                    });
                 }
                 else {
                     spzTable.$('tr.selected').removeClass('selected');
