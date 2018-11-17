@@ -47,7 +47,7 @@
     <div class="container">
         <div class="row mt-5">
             <div class="col-md-12">
-                <table id="myTable" class="table table-striped table-bordered">
+                <table id="myTable" class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>Datum</th>
@@ -89,6 +89,8 @@
     <script type="text/javascript" src="DataTables/datatables.min.js"></script>
     <script>
         $(document).ready(function () {
+
+            document.getElementById('myTable').style.cursor = 'pointer';
 
             var table = $('#myTable').DataTable({
                 "ajax": "db_select_complete.php",

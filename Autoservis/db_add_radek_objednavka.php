@@ -24,3 +24,4 @@ if ($_POST) {
         echo "Error: " . $query . " " . $conn->connect_error;
     }
 }
+$conn->close();

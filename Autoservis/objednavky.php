@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
 
+<?php
+    require "db_connect.php";
+
+    $query = "UPDATE servisni_objednavka SET stav = 'probíhá' WHERE datum = DATE(LOCALTIME())";
+    $conn->query($query);
+    $conn->close();
+?>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +22,7 @@
 
 <body>
 
-     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="dashboard.html"><span><i class="fa fa-home"></i></span> DashBoard</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -56,7 +64,7 @@
     <div class="container">
         <div class="row mt-5">
             <div class="col-md-12">
-                <table id="myTable" class="table table-striped table-bordered">
+                <table id="myTable" class="table table-hover table-bordered">
                     <thead>
                         <tr>
                             <th>Datum</th>
@@ -110,15 +118,15 @@
                                         <label for="servisakS">Servisak</label>
                                         <select class="form-control" id="servisakS">
                                             <?php
-                                                        include 'db_connect.php';
-                                                        $query = "SELECT servisak_id, CONCAT(jmeno,' ',prijmeni) as servisak FROM servisak;";
-                                                        $result = $conn->query($query);
-                                                        while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-                                                            echo "<option value=" . $row['servisak_id'] . ">" . $row['servisak'] . "</option>";
-        
-                                                        }
-        
-                                                    ?>
+                                                include 'db_connect.php';
+                                                $query = "SELECT servisak_id, CONCAT(jmeno,' ',prijmeni) as servisak FROM servisak;";
+                                                $result = $conn->query($query);
+                                                while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+                                                    echo "<option value=" . $row['servisak_id'] . ">" . $row['servisak'] . "</option>";
+
+                                                }
+
+                                            ?>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -213,13 +221,15 @@
     <script>
         $(document).ready(function () {
 
+            document.getElementById('myTable').style.cursor = 'pointer';
+
             $('#dokoncit').click(function () {
                 if ($('#myTable tbody tr').hasClass('selected')) {
                     $('#accept').modal('show');
                     var tr = table.$('tr.selected').closest('tr');
                     var row = table.row(tr);
                     var text = row.data().datum + " " + row.data().auto + " " + row.data().provozovatel;
-                    
+
                     $('#objID').val(row.data().servisni_objednavka_id);
                     $('#servis').text(text);
                     $('#akce').val('dokončeno');

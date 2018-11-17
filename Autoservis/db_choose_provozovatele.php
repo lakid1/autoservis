@@ -29,3 +29,4 @@ if (json_encode($data) != null) {
     ]}';
 }
 echo $output;
+$conn->close();

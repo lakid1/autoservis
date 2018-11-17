@@ -178,6 +178,8 @@
 
         $(document).ready(function () {
 
+            
+            document.getElementById('provozTable').style.cursor = 'pointer';
 
             $('#submitBtn').click(function () {
                 var provozovatel = $('#provozovatel').val();

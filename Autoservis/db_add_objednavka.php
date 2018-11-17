@@ -11,14 +11,7 @@ if ($_POST) {
     $provozovatel_id = $_POST['provozovatel'];
     $auto_id = $_POST['auto'];
 
-    // if(strlen(strstr($datum, '-', true)) != 4){
-    // $rok = strstr($datum, '-', true);
-    // $datum = strtr($datum,5) . "-" . $rok;
-    //echo $rok;
-    //$datum = strtr($datum,'-','');
-    //echo($datum);
-    // echo $datum;
-    //}
+    
 
     $query = "INSERT INTO servisni_objednavka() VALUES(null,'$datum','přijato',$provozovatel_id,$auto_id);";
 
@@ -29,3 +22,4 @@ if ($_POST) {
     }
 
 }
+$conn->close();

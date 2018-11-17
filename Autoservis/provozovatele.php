@@ -142,6 +142,7 @@
     <script>
         $(document).ready(function () {
 
+
             var table = $('#myTable').DataTable({
                 "ajax": "db_select_provozovatele.php",
                 "columns": [

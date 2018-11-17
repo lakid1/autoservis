@@ -26,3 +26,4 @@ if (empty($data) != true) {
 }
 
 echo $output;
+$conn->close();
