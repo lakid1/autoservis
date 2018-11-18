@@ -1,7 +1,7 @@
 <?php
 require 'db_connect.php';
 
-$query = "SELECT CONCAT(jmeno,' ',prijmeni) AS servisak FROM servisak;";
+$query = "SELECT servisak_id, CONCAT(jmeno,' ',prijmeni) AS servisak FROM servisak;";
 
 $result = $conn->query($query);
 

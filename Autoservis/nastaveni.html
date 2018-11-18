@@ -106,7 +106,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form id="formAddRadek" action="db_add_radek_objednavka.php" method="POST">
+                                    <form id="formAddRadek" action="db_add_z_s.php" method="POST">
 
                                         <div class="form-group">
                                             <label for="input1" id="label1"></label>
@@ -151,6 +151,11 @@
                 </div>
             </div>
         </div>
+
+        <form id="deleteTS" action="db_delete_z_s.php" method="POST">
+            <input id="del_id" type="text" style="display: none !important;">
+        </form>
+
     </div>
     <script type="text/javascript" src="DataTables/datatables.min.js"></script>
     <script>
@@ -161,6 +166,12 @@
             document.getElementById('myTable').style.cursor = 'pointer';
             document.getElementById('myTable2').style.cursor = 'pointer';
 
+            $('#confirmAccept').click(function () {
+                $('#deleteTS').trigger('submit');
+            });
+            $('#ok').click(function () {
+                $('#formAddRadek').trigger('submit');
+            });
             $('#delete').click(function () {
                 if (!$('#nav-zasahy-tab').hasClass('active')) {
                     $('#accept .modal-title').text("Odebrat servisáka ?");
@@ -168,19 +179,28 @@
                     var row = tableServisaci.row(tr);
                     var text = row.data().servisak;
                     $('#confirmText').text(text);
+                    $('#del_id').attr("name", "servisak_id")
+                    var id = row.data().servisak_id;
+                    $('#del_id').val(id);
+
                 } else {
                     $('#accept .modal-title').text("Odebrat typ zásahu ?");
                     var tr = tableTypy.$('tr.selected').closest('tr');
                     var row = tableTypy.row(tr);
                     var text = row.data().nazev + " / " + row.data().cena + " Kč";
-                   
                     $('#confirmText').text(text);
+                    $('#del_id').attr("name", "typ_zasahu_id")
+                    var id = row.data().typ_zasahu_id;
+                    $('#del_id').val(id);
+
                 }
 
                 $('#accept').modal('show');
             });
 
             $('#add').click(function () {
+                $('#input1').val(null);
+                $('#input2').val(null);
 
                 if (!$('#nav-zasahy-tab').hasClass('active')) {
                     $('#myModal .modal-title').text("Přidat servisáka");
