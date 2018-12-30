@@ -4,7 +4,7 @@
 <?php
     require "db_connect.php";
 
-    $query = "UPDATE servisni_objednavka SET stav = 'probíhá' WHERE datum = DATE(LOCALTIME())";
+    $query = "UPDATE servisni_objednavka SET stav = 'probíhá' WHERE datum < DATE(CURDATE()) AND ukonceno IS null";
     $conn->query($query);
     $conn->close();
 ?>

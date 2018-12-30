@@ -5,13 +5,21 @@ if ($_POST) {
     $akce = $_POST['akce'];
 
     $query = "UPDATE servisni_objednavka SET stav = '$akce' WHERE servisni_objednavka_id = $servisni_objednavka_id;";
-
+    
     if ($conn->query($query) === true) {
+
         if ($_POST['from'] == "dashboard") {
             header("Location: dashboard.html");
         }
+
         if ($_POST['from'] == "objednavky") {
-            header("Location: objednavky.php");
+
+            $query = "UPDATE servisni_objednavka SET ukonceno = CURDATE() WHERE servisni_objednavka_id = $servisni_objednavka_id;";
+            if ($conn->query($query) === true) {
+                header("Location: objednavky.php");
+            } else {
+                echo "Error: " . $query . "<br>" . $conn->connect_error;
+            }
         }
     } else {
         echo "Error: " . $query . "<br>" . $conn->connect_error;
