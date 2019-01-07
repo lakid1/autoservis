@@ -1,3 +1,14 @@
+<?php
+
+session_start();
+if (isset($_SESSION['admin'])) {
+    if ($_SESSION['admin'] == 0) {
+        header("Location: userDashboard.php");
+    }
+} else {
+    header("Location: login.php");
+}
+?>
 <!DOCTYPE html>
 <html>
 
@@ -24,7 +35,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="dashboard.html"><span><i class="fa fa-home"></i></span> DashBoard</a>
+            <a class="navbar-brand" href="dashboard.php"><span><i class="fa fa-home"></i></span> DashBoard</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -42,11 +53,14 @@
                         <a class="nav-link" href="provozovatele.php">Provozovatelé</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="historie.html">Historie</a>
+                        <a class="nav-link" href="historie.php">Historie</a>
                     </li>
 
                 </ul>
-                <span><a href="nastaveni.html"><i class="fas fa-sliders-h fa-lg" style="color: white;"></i></a></span>
+                <form class="form-inline">
+                    <button id="logoutBtn" type="button" class="btn btn-outline-light mr-sm-3 my-2 my-sm-0">Odhlásit se</button>
+                    <a href="nastaveni.php"><i class="fas fa-sliders-h fa-lg" style="color: white;"></i></a>
+                </form>
             </div>
         </div>
     </nav>
@@ -78,7 +92,7 @@
                 </table>
             </div>
         </div>
-        <div class="row mt-5 ">
+        <div class="row mt-5 mb-5">
             <div class="col-md-12">
                 <button id="add" class="btn btn-info"><span><i class="fas fa-plus-circle"></i></span> Přidat záznamy
                     k zásahu</button>
@@ -220,6 +234,11 @@
     <script type="text/javascript" src="DataTables/datatables.min.js"></script>
     <script>
         $(document).ready(function () {
+            
+            $('#logoutBtn').click(function () {
+                sessionStorage.clear();
+                window.location.replace("login.php");
+            });
 
             document.getElementById('myTable').style.cursor = 'pointer';
 

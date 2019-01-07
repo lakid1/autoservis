@@ -9,7 +9,7 @@ if ($_POST) {
     if ($conn->query($query) === true) {
 
         if ($_POST['from'] == "dashboard") {
-            header("Location: dashboard.html");
+            header("Location: dashboard.php");
         }
 
         if ($_POST['from'] == "objednavky") {

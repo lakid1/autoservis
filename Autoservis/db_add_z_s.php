@@ -21,6 +21,6 @@ if ($_POST) {
     } else {
         echo "Error: " . $conn->connect_error . " Query: " . $query;
     }
-    header("Location: nastaveni.html");
+    header("Location: nastaveni.php");
 }
 $conn->close();

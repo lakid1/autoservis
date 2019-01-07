@@ -1,3 +1,14 @@
+<?php
+
+session_start();
+if (isset($_SESSION['admin'])) {
+    if ($_SESSION['admin'] == 0) {
+        header("Location: userDashboard.php");
+    }
+} else {
+    header("Location: login.php");
+}
+?>
 <!DOCTYPE html>
 <html>
 
@@ -16,7 +27,7 @@
 
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="dashboard.html"><span><i class="fa fa-home"></i></span> DashBoard</a>
+            <a class="navbar-brand" href="dashboard.php"><span><i class="fa fa-home"></i></span> DashBoard</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -34,43 +45,46 @@
                         <a class="nav-link" href="provozovatele.php">Provozovatelé</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="historie.html">Historie</a>
+                        <a class="nav-link" href="historie.php">Historie</a>
                     </li>
 
                 </ul>
-                <span><a href="nastaveni.html"><i class="fas fa-sliders-h fa-lg" style="color: white;"></i></a></span>
+                <form class="form-inline">
+                    <button id="logoutBtn" type="button" class="btn btn-outline-light mr-sm-3 my-2 my-sm-0">Odhlásit se</button>
+                    <a href="nastaveni.php"><i class="fas fa-sliders-h fa-lg" style="color: white;"></i></a>
+                </form>
             </div>
         </div>
     </nav>
 
     <div class="container">
         <?php
-            session_start();
 
-            if (isset($_SESSION['info'])) {
 
-                $info = $_SESSION['info'];
+if (isset($_SESSION['info'])) {
 
-                echo "<div class='mt-2 alert alert-danger alert-dismissible fade show' role='alert'> $info <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+    $info = $_SESSION['info'];
+
+    echo "<div class='mt-2 alert alert-danger alert-dismissible fade show' role='alert'> $info <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                         <span aria-hidden='true'>&times;</span>
                         </button>
                                 </div>";
 
-                unset($_SESSION['info']);
-            }
-            if (isset($_SESSION['info2'])) {
+    unset($_SESSION['info']);
+}
+if (isset($_SESSION['info2'])) {
 
-                $info = $_SESSION['info2'];
+    $info = $_SESSION['info2'];
 
-                echo "<div class='mt-2 alert alert-danger alert-dismissible fade show' role='alert'> $info2 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+    echo "<div class='mt-2 alert alert-danger alert-dismissible fade show' role='alert'> $info2 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                         <span aria-hidden='true'>&times;</span>
                         </button>
                                 </div>";
 
-                unset($_SESSION['info2']);
-            }
+    unset($_SESSION['info2']);
+}
 
-        ?>
+?>
 
         <div id="info" style="display: none;" class='mt-2 alert alert-danger alert-dismissible fade show' role='alert'>
             Provozovatel nebyl vybrán
@@ -178,6 +192,10 @@
 
         $(document).ready(function () {
 
+            $('#logoutBtn').click(function () {
+                sessionStorage.clear();
+                window.location.replace("login.php");
+            });
             
             document.getElementById('provozTable').style.cursor = 'pointer';
 

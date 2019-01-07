@@ -16,7 +16,7 @@ if ($_POST) {
     $query = "INSERT INTO servisni_objednavka() VALUES(null,'$datum','přijato',null,$provozovatel_id,$auto_id);";
 
     if ($conn->query($query) === true) {
-        header("Location: dashboard.html");
+        header("Location: dashboard.php");
     } else {
         echo "Error: " . $query . "<br>" . $conn->connect_error;
     }
