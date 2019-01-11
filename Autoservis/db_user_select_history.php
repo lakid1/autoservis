@@ -18,11 +18,7 @@ if (empty($data) != true) {
     $output = '{"data":' . json_encode($data) . '}';
 } else {
     $output = '{"data": [
-        {
-            "datum": "Žádná data",
-            "auto": "Žádná data",
-            "cena": "Žádná data",
-        }
+       
     ]}';
 }
 

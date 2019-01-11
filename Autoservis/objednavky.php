@@ -93,15 +93,18 @@ if (isset($_SESSION['admin'])) {
             </div>
         </div>
         <div class="row mt-5 mb-5">
-            <div class="col-md-12">
-                <button id="add" class="btn btn-info"><span><i class="fas fa-plus-circle"></i></span> Přidat záznamy
+            <div class="col-md-3">
+                
+                <button id="add" class="btn btn-info form-group"><span><i class="fas fa-plus-circle"></i></span> Přidat záznamy
                     k zásahu</button>
-
-                <button id="dokoncit" class="btn btn-success"><span><i class="fas fa-check"></i></span> Dokončit
+            </div>
+            <div class="col-md-3">
+                <button id="dokoncit" class="btn btn-success form-group"><span><i class="fas fa-check"></i></span> Dokončit
                     objednávku</button>
-
-                <button id="storno" class="btn btn-danger">Storno</button>
-
+            </div>
+            <div class="col-md-2">
+                <button id="storno" class="btn btn-danger form-group">Storno</button>
+            </div>
             </div>
         </div>
     </div>
@@ -234,7 +237,7 @@ if (isset($_SESSION['admin'])) {
     <script type="text/javascript" src="DataTables/datatables.min.js"></script>
     <script>
         $(document).ready(function () {
-            
+
             $('#logoutBtn').click(function () {
                 sessionStorage.clear();
                 window.location.replace("login.php");
@@ -311,7 +314,7 @@ if (isset($_SESSION['admin'])) {
                 else {
                     var tr = table.$('tr').closest('tr');
                     var row = table.row(tr);
-                    if (row.data().datum != "Empty Table") {
+                    if (row.data().datum != "") {
                         table.$('tr.selected').removeClass('selected');
                         $(this).addClass('selected');
                     }
@@ -352,6 +355,9 @@ if (isset($_SESSION['admin'])) {
 
             var table = $('#myTable').DataTable({
                 "ajax": "db_select_objednavky.php",
+                responsive: {
+                    details: true
+                },
                 "columns": [
 
                     { "data": "datum" },

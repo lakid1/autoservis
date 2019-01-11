@@ -25,7 +25,7 @@ if (isset($_SESSION['admin'])) {
 
 <body>
 
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="dashboard.php"><span><i class="fa fa-home"></i></span> DashBoard</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -59,7 +59,6 @@ if (isset($_SESSION['admin'])) {
 
     <div class="container">
         <?php
-
 
 if (isset($_SESSION['info'])) {
 
@@ -145,7 +144,7 @@ if (isset($_SESSION['info2'])) {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="provozTable" class="table table-striped table-bordered" style="width: 100%;">
+                    <table id="provozTable" class="table table-hover table-bordered" style="width: 100%;">
                         <thead>
                             <tr>
                                 <th>Firma</th>
@@ -196,7 +195,7 @@ if (isset($_SESSION['info2'])) {
                 sessionStorage.clear();
                 window.location.replace("login.php");
             });
-            
+
             document.getElementById('provozTable').style.cursor = 'pointer';
 
             $('#submitBtn').click(function () {
@@ -214,6 +213,9 @@ if (isset($_SESSION['info2'])) {
 
             var provozTable = $('#provozTable').DataTable({
                 "ajax": "db_choose_provozovatele.php",
+                responsive: {
+                    details: true
+                },
                 "columns": [
 
                     { "data": "firma" },
@@ -257,28 +259,35 @@ if (isset($_SESSION['info2'])) {
                     });
                 }
                 else {
-                    provozTable.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
+
                     var tr = $(this).closest('tr');
                     var row = provozTable.row(tr);
+                    
+                    if (row.data().firma != "") {
+                        provozTable.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+                        // Vybrání řádku s
+                        $('#ok').click(function () {
 
-                    // Vybrání řádku s
-                    $('#ok').click(function () {
 
+                            //alert(row.data().provozovatel_id);
+                            var selected = row.data().provozovatel_id;
+                            $('#provozovatel').val(selected);
+                            var selectedName = row.data().provozovatel;
+                            $('#provoz').val(selectedName);
+                            $('#myModal').modal('hide');
+                        });
+                    }
 
-                        //alert(row.data().provozovatel_id);
-                        var selected = row.data().provozovatel_id;
-                        $('#provozovatel').val(selected);
-                        var selectedName = row.data().provozovatel;
-                        $('#provoz').val(selectedName);
-                        $('#myModal').modal('hide');
-                    });
                 }
 
             });
 
             var table = $('#myTable').DataTable({
                 "ajax": "db_select_auta.php",
+                responsive: {
+                    details: true
+                },
                 "columns": [
 
                     { "data": "provozovatel" },

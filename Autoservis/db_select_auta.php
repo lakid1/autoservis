@@ -14,15 +14,7 @@ if (empty($data) != true) {
     $output = '{"data":' . json_encode($data) . '}';
 } else {
     $output = '{"data": [
-        {
-            "provozovatel": "Empty Table",
-            "spz": "Empty Table",
-            "znacka": "Empty Table",
-            "model": "Empty Table",
-            "rok_vyroby": "Empty Table",
-            "motor": "Empty Table",
 
-        }
     ]}';
 }
 

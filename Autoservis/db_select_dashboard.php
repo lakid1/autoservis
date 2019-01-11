@@ -20,15 +20,13 @@ if (empty($data) != true) {
     $output = '{"data":' . json_encode($data) . '}';
 
 } else {
-    $output = '{"data": [
-        {
+   
 
-            "provozovatel": "Empty Table",
-            "auto": "Empty Table",
-            "datum": "Empty Table",
-            "telefon":"Empty Table",
-            "stav": "Empty Table"
-         }
+    $output = '{"data": [
+        
+
+            
+         
     ]}';
 }
 echo $output;

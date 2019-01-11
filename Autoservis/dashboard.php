@@ -158,7 +158,7 @@ if (isset($_SESSION['admin'])) {
     </div>
 
     <!-- Confirmation -->
-    <div class="container">
+    <div class="container mb-5">
         <div class="row mt-3">
             <div class="col-md-12">
                 <form id="updateStav" action="db_updateStav.php" method="POST">
@@ -234,7 +234,9 @@ if (isset($_SESSION['admin'])) {
             });
             var table = $('#myTable').DataTable({
                 "ajax": "db_select_dashboard.php",
-
+                responsive: {
+                    details: true
+                },
                 "order": [0, "asc"],
                 "columns": [
                     { "data": "datum" },
@@ -276,11 +278,13 @@ if (isset($_SESSION['admin'])) {
 
                 }
                 else {
-                    table.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
+
                     var tr = $(this).closest('tr');
                     var row = table.row(tr);
-
+                    if (row.data().datum != "") {
+                        table.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+                    }
 
                 }
 
@@ -293,6 +297,9 @@ if (isset($_SESSION['admin'])) {
 
             var spzTable = $('#spzTable').DataTable({
                 "ajax": "db_select_auta_dash.php",
+                responsive: {
+                    details: true
+                },
                 "columns": [
                     { "data": "provozovatel" },
                     { "data": "znacka" },
@@ -337,23 +344,28 @@ if (isset($_SESSION['admin'])) {
                     });
                 }
                 else {
-                    spzTable.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
+
                     var tr = $(this).closest('tr');
                     var row = spzTable.row(tr);
+                    if (row.data().datum != "") {
+                        spzTable.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
 
-                    $('#ok').click(function () {
+                        $('#ok').click(function () {
 
-                        // Vybrání řádku provozovatel + auto
-                        var provozovatel = row.data().provozovatel_id
-                        $('#provozovatel').val(provozovatel);
-                        var auto = row.data().auto_id;
-                        $('#auto').val(auto);
-                        var nazev = row.data().znacka + " " + row.data().model;
-                        $('#vozidlo').val(nazev);
+                            // Vybrání řádku provozovatel + auto
+                            var provozovatel = row.data().provozovatel_id
+                            $('#provozovatel').val(provozovatel);
+                            var auto = row.data().auto_id;
+                            $('#auto').val(auto);
+                            var nazev = row.data().znacka + " " + row.data().model;
+                            $('#vozidlo').val(nazev);
 
-                        $('#myModal').modal('hide');
-                    });
+                            $('#myModal').modal('hide');
+                        });
+                    }
+
+
                 }
 
 

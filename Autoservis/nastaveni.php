@@ -247,7 +247,7 @@ if (isset($_SESSION['admin'])) {
                 else {
                     var tr = tableTypy.$('tr').closest('tr');
                     var row = tableTypy.row(tr);
-                    if (row.data().nazev != "Empty Table") {
+                    if (row.data().nazev != "") {
                         tableTypy.$('tr.selected').removeClass('selected');
                         $(this).addClass('selected');
                     }
@@ -268,7 +268,7 @@ if (isset($_SESSION['admin'])) {
                 else {
                     var tr = tableServisaci.$('tr').closest('tr');
                     var row = tableServisaci.row(tr);
-                    if (row.data().nazev != "Empty Table") {
+                    if (row.data().nazev != "") {
                         tableServisaci.$('tr.selected').removeClass('selected');
                         $(this).addClass('selected');
                     }
@@ -286,6 +286,9 @@ if (isset($_SESSION['admin'])) {
 
             var tableTypy = $('#myTable').DataTable({
                 "ajax": "db_select_typy.php",
+                responsive: {
+                    details: true
+                },
                 "order": [0, "asc"],
                 "columns": [
                     { "data": "nazev" },
@@ -319,6 +322,9 @@ if (isset($_SESSION['admin'])) {
 
             var tableServisaci = $('#myTable2').DataTable({
                 "ajax": "db_select_servisak.php",
+                responsive: {
+                    details: true
+                },
                 "order": [0, "asc"],
                 "columns": [
                     { "data": "servisak" },

@@ -75,7 +75,7 @@ if (isset($_SESSION['admin'])) {
                   <thead>
                     <tr>
                       <th>SPZ</th>
-                      <th>Nazev</th>
+                      <th>Auto</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -242,9 +242,12 @@ if (isset($_SESSION['admin'])) {
       $('#historyTable tbody').on('click', 'tr', function () {
         var tr = $(this).closest('tr');
         var row = historyTable.row(tr);
-        $("#historyModal").modal('show');
-        $('#historyModalTitle').text(row.data().datum + " / " + row.data().auto + " / " + row.data().cena + "Kč");
-        showInformation(row.data().id);
+        if (row.data().datum != "") {
+          $("#historyModal").modal('show');
+          $('#historyModalTitle').text(row.data().datum + " / " + row.data().auto + " / " + row.data().cena + "Kč");
+          showInformation(row.data().id);
+        }
+
 
       });
 
@@ -285,21 +288,26 @@ if (isset($_SESSION['admin'])) {
           });
         }
         else {
-          carsTable.$('tr.selected').removeClass('selected');
-          $(this).addClass('selected');
+
           var tr = $(this).closest('tr');
           var row = carsTable.row(tr);
 
-          $('#ok').click(function () {
+          if (row.data().spz != "") {
+            carsTable.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+            $('#ok').click(function () {
 
-            // Vybrání řádku provozovatel + auto
-            var auto = row.data().auto_id;
-            $('#auto').val(auto);
-            var nazev = row.data().nazev
-            $('#car').val(nazev);
-            $('#auto_id').val(auto);
-            $('#myModal').modal('hide');
-          });
+              // Vybrání řádku provozovatel + auto
+              var auto = row.data().auto_id;
+              $('#auto').val(auto);
+              var nazev = row.data().nazev
+              $('#car').val(nazev);
+              $('#auto_id').val(auto);
+              $('#myModal').modal('hide');
+            });
+          }
+
+
         }
 
       });

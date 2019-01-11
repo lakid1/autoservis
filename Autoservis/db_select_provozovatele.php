@@ -20,16 +20,7 @@ if (empty($data) != true) {
 
 } else {
     $output = '{"data": [
-        {
-            "firma": "Empty Table",
-            "provozovatel": "Empty Table",
-            "telefon": "Empty Table",
-            "email": "Empty Table",
-            "ulice": "Empty Table",
-            "cislo_popisne": "Empty Table",
-            "mesto": "Empty Table",
-            "psc": "Empty Table",
-        }
+       
     ]}';
 }
 echo $output;

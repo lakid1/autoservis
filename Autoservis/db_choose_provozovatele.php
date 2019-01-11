@@ -20,12 +20,7 @@ if (json_encode($data) != null) {
 
 } else {
     $output = '{"data": [
-        {
-            "firma": "Empty Table",
-            "provozovatel": "Empty Table",
-            "email": "Empty Table",
-
-        }
+      
     ]}';
 }
 echo $output;

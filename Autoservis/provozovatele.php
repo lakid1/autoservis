@@ -59,21 +59,20 @@ if (isset($_SESSION['admin'])) {
 
     <div class="container">
         <?php
-            
 
-            if (isset($_SESSION['info'])) {
+if (isset($_SESSION['info'])) {
 
-                $info = $_SESSION['info'];
+    $info = $_SESSION['info'];
 
-                echo "<div class='mt-2 alert alert-danger alert-dismissible fade show' role='alert'> $info <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+    echo "<div class='mt-2 alert alert-danger alert-dismissible fade show' role='alert'> $info <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                         <span aria-hidden='true'>&times;</span>
                         </button>
                                 </div>";
 
-                unset($_SESSION['info']);
-            }
+    unset($_SESSION['info']);
+}
 
-        ?>
+?>
         <div class="row mt-5">
             <div class="col-md-12">
                 <form action="db_add_provozovatel.php" class="col-md-12" method="POST">
@@ -163,6 +162,9 @@ if (isset($_SESSION['admin'])) {
 
             var table = $('#myTable').DataTable({
                 "ajax": "db_select_provozovatele.php",
+                responsive: {
+                    details: true
+                },
                 "columns": [
                     { "data": "firma" },
                     { "data": "provozovatel" },

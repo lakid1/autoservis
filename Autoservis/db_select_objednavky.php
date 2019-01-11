@@ -19,12 +19,7 @@ if (empty($data) != true) {
 
 } else {
     $output = '{"data": [
-        {
-            "datum": "Empty Table",
-            "provozovatel": "Empty Table",
-            "auto": "Empty Table",
-            "stav": "Empty Table"
-         }
+      
     ]}';
 }
 echo $output;

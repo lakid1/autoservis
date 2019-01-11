@@ -17,11 +17,7 @@ if (empty($data) != true) {
     $output = '{"data":' . json_encode($data) . '}';
 } else {
     $output = '{"data": [
-        {
-            "spz": "Žádná data",
-            "nazev": "Žádná data",
-
-        }
+        
     ]}';
 }
 

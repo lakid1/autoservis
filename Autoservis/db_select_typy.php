@@ -13,10 +13,7 @@ if (empty($data) != true) {
     $output = '{"data":' . json_encode($data) . '}';
 } else {
     $output = '{"data": [
-        {
-            "nazvev": "Empty Table",
-            "cena": "Empty Table",
-        }
+       
     ]}';
 }
 

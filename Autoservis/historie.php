@@ -113,6 +113,9 @@ if (isset($_SESSION['admin'])) {
 
             var table = $('#myTable').DataTable({
                 "ajax": "db_select_complete.php",
+                responsive: {
+                    details: true
+                },
                 "columns": [
 
                     { "data": "datum" },
@@ -149,9 +152,11 @@ if (isset($_SESSION['admin'])) {
             $('#myTable tbody').on('click', 'tr', function () {
                 var tr = $(this).closest('tr');
                 var row = table.row(tr);
-                $("#myModal").modal('show');
-                $('#myModalTitle').text(row.data().datum + " / " + row.data().auto + " / " + row.data().provozovatel);
-                showInformation(row.data().servisni_objednavka_id);
+                if (row.data().datum != "") {
+                    $("#myModal").modal('show');
+                    $('#myModalTitle').text(row.data().datum + " / " + row.data().auto + " / " + row.data().provozovatel);
+                    showInformation(row.data().servisni_objednavka_id);
+                }
 
             });
 
