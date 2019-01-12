@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 28, 2018 at 02:01 PM
--- Server version: 10.1.35-MariaDB
--- PHP Version: 7.2.9
+-- Generation Time: Jan 12, 2019 at 05:55 PM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -41,9 +41,7 @@ CREATE TABLE `adresa` (
 --
 
 INSERT INTO `adresa` (`adresa_id`, `ulice`, `cislo_popisne`, `mesto`, `psc`) VALUES
-(1, 'main', 'main', 'main', 0),
-(2, 'Lutyňská', '1945', 'Rychvald', 73532),
-(3, 'Školní', '457', 'Ostrava', 70245);
+(1, 'admin', 'admin', 'admin', 0);
 
 -- --------------------------------------------------------
 
@@ -66,9 +64,7 @@ CREATE TABLE `auto` (
 --
 
 INSERT INTO `auto` (`auto_id`, `spz`, `znacka`, `model`, `rok_vyroby`, `motor`, `provozovatel_id`) VALUES
-(1, 'nové', 'nové', 'nové', 'nové', 'nové', 1),
-(2, '8T91821', 'Subaru', 'WRX STI', '2019', '2.5 liter EJ20', 2),
-(3, '5T67894', 'Mazda', 'mx-5', '1997', '2.0 liter', 3);
+(1, 'nové', 'nové', 'nové', 'nové', 'nové', 1);
 
 -- --------------------------------------------------------
 
@@ -84,6 +80,7 @@ CREATE TABLE `provozovatel` (
   `telefon` varchar(20) COLLATE utf8_czech_ci NOT NULL,
   `email` varchar(50) COLLATE utf8_czech_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_czech_ci NOT NULL,
+  `admin` tinyint(4) NOT NULL DEFAULT '0',
   `adresa_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
@@ -91,10 +88,8 @@ CREATE TABLE `provozovatel` (
 -- Dumping data for table `provozovatel`
 --
 
-INSERT INTO `provozovatel` (`provozovatel_id`, `firma`, `jmeno`, `prijmeni`, `telefon`, `email`, `password`, `adresa_id`) VALUES
-(1, 'main', 'main', 'main', 'main', 'admin', 'RyosukeFC', 1),
-(2, 'jednotlivec', 'Martin', 'Šmídl', '725813446', 'm.smidl.st@spseiostrava.cz', 'RyosukeFC', 2),
-(3, 'jednotlivec', 'Jirka', 'Gazdík', '758964213', 'marek.sindelar@gmail.com', 'RyosukeFC', 3);
+INSERT INTO `provozovatel` (`provozovatel_id`, `firma`, `jmeno`, `prijmeni`, `telefon`, `email`, `password`, `admin`, `adresa_id`) VALUES
+(1, 'main', 'main', 'main', 'main', 'admin', '5755a949f420ffc834c86da8534feda7', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -126,9 +121,11 @@ CREATE TABLE `servisni_objednavka` (
   `servisni_objednavka_id` int(11) NOT NULL,
   `datum` date NOT NULL,
   `stav` varchar(10) COLLATE utf8_czech_ci NOT NULL DEFAULT 'přijata',
+  `ukonceno` date DEFAULT NULL,
   `provozovatel_id` int(11) NOT NULL,
   `auto_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
 
 -- --------------------------------------------------------
 
@@ -144,6 +141,23 @@ CREATE TABLE `servisni_objednavka_radky` (
   `typ_zasahu_id` int(11) NOT NULL,
   `servisak_id` int(11) NOT NULL,
   `servisni_objednavka_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
+--
+-- Dumping data for table `servisni_objednavka_radky`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tokens`
+--
+
+CREATE TABLE `tokens` (
+  `token_id` int(11) NOT NULL,
+  `value` varchar(255) COLLATE utf8_czech_ci NOT NULL,
+  `date_ex` date NOT NULL,
+  `provozovatel_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 -- --------------------------------------------------------
@@ -163,7 +177,9 @@ CREATE TABLE `typ_zasahu` (
 --
 
 INSERT INTO `typ_zasahu` (`typ_zasahu_id`, `nazev`, `cena`) VALUES
-(1, 'jiné', 0);
+(1, 'jiné', 0),
+(2, 'Výměna pneumatik', 500),
+(3, 'Výměna filtru', 600);
 
 --
 -- Indexes for dumped tables
@@ -213,6 +229,13 @@ ALTER TABLE `servisni_objednavka_radky`
   ADD KEY `fk_Servisni_Objednavka_Radky_Servisni_Objednavka1_idx` (`servisni_objednavka_id`);
 
 --
+-- Indexes for table `tokens`
+--
+ALTER TABLE `tokens`
+  ADD PRIMARY KEY (`token_id`),
+  ADD KEY `pr_tok_fk` (`provozovatel_id`);
+
+--
 -- Indexes for table `typ_zasahu`
 --
 ALTER TABLE `typ_zasahu`
@@ -226,19 +249,19 @@ ALTER TABLE `typ_zasahu`
 -- AUTO_INCREMENT for table `adresa`
 --
 ALTER TABLE `adresa`
-  MODIFY `adresa_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `adresa_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `auto`
 --
 ALTER TABLE `auto`
-  MODIFY `auto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `auto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `provozovatel`
 --
 ALTER TABLE `provozovatel`
-  MODIFY `provozovatel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `provozovatel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `servisak`
@@ -250,19 +273,25 @@ ALTER TABLE `servisak`
 -- AUTO_INCREMENT for table `servisni_objednavka`
 --
 ALTER TABLE `servisni_objednavka`
-  MODIFY `servisni_objednavka_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `servisni_objednavka_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `servisni_objednavka_radky`
 --
 ALTER TABLE `servisni_objednavka_radky`
-  MODIFY `servisni_objednavka_radky_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `servisni_objednavka_radky_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tokens`
+--
+ALTER TABLE `tokens`
+  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `typ_zasahu`
 --
 ALTER TABLE `typ_zasahu`
-  MODIFY `typ_zasahu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `typ_zasahu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -294,6 +323,12 @@ ALTER TABLE `servisni_objednavka_radky`
   ADD CONSTRAINT `fk_Servisni_Objednavka_Radky_Servisak1` FOREIGN KEY (`servisak_id`) REFERENCES `servisak` (`servisak_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Servisni_Objednavka_Radky_Servisni_Objednavka1` FOREIGN KEY (`servisni_objednavka_id`) REFERENCES `servisni_objednavka` (`servisni_objednavka_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Servisni_Objednavka_Radky_Typ_Zasahu1` FOREIGN KEY (`typ_zasahu_id`) REFERENCES `typ_zasahu` (`typ_zasahu_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `tokens`
+--
+ALTER TABLE `tokens`
+  ADD CONSTRAINT `pr_tok_fk` FOREIGN KEY (`provozovatel_id`) REFERENCES `provozovatel` (`provozovatel_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
