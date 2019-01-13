@@ -4,7 +4,7 @@ require "db_connect.php";
 if($_POST){
     session_start();
     $user = $_POST['user'];
-    $password = $_POST['password'];
+    $password = md5($_POST['password']);
     
     $query = "SELECT provozovatel_id, admin
     FROM provozovatel
