@@ -2,7 +2,7 @@
 require "db_connect.php";
 
 $query = "SELECT servisni_objednavka_id,datum, CONCAT(jmeno,' ', prijmeni) AS provozovatel,CONCAT(znacka,' ', model)AS auto,
-stav FROM servisni_objednavka INNER JOIN provozovatel USING(provozovatel_id)
+stav, zavada FROM servisni_objednavka INNER JOIN provozovatel USING(provozovatel_id)
 INNER JOIN auto USING(auto_id) WHERE datum <= CURDATE() AND stav LIKE 'probíhá' ORDER BY datum";
 
 $result = $conn->query($query);

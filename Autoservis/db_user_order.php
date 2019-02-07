@@ -6,13 +6,28 @@ if ($_POST) {
     $auto_id = $_POST['auto_id'];
     $provozovatel_id = $_SESSION['id'];
     $date = $_POST['date'];
-    $query = "INSERT INTO servisni_objednavka() VALUES(null,'$date','přijato',null,$provozovatel_id,$auto_id)";
+    $zavada = $_POST['zavada'];
 
-    if ($conn->query($query) === true) {
+    $check = "SELECT servisni_objednavka_id FROM servisni_objednavka WHERE datum LIKE '$date' AND stav NOT LIKE 'storno'";
+    //Limit na den
+    if ($conn->query($check)->num_rows > 4) {
+
+        //Limit
+        $_SESSION['info'] = "Servis na den " . $date . " nelze objednat z důvodu plné kapacity.";
         header("Location: userDashboard.php");
+
     } else {
-        echo "error: " . $conn->connection_error;
+
+        $query = "INSERT INTO servisni_objednavka() VALUES(null,'$date','přijato',null,'$zavada',$provozovatel_id,$auto_id)";
+
+        if ($conn->query($query) === true) {
+            header("Location: userDashboard.php");
+        } else {
+            echo "error: " . $conn->connection_error;
+        }
+
     }
+
     $conn->close();
 
 }

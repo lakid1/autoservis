@@ -17,7 +17,7 @@ if (isset($_SESSION['admin'])) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- ICONS -->
+  <!-- ICONS -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
     crossorigin="anonymous">
   <!-- DATATABLES -->
@@ -46,11 +46,29 @@ if (isset($_SESSION['admin'])) {
     </div>
   </nav>
 
+  <?php
+
+if (isset($_SESSION['info'])) {
+    echo "<div class='row'>
+          <div class='col-md-6 mx-auto mt-5'>
+              <div class='alert alert-primary alert-dismissible fade show' role='alert'>
+                  <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                      <span aria-hidden='true'>&times;</span>
+                      <span class='sr-only'>Close</span>
+                  </button>
+                  <strong>" . $_SESSION['info'] ."</strong>
+              </div>
+          </div>
+  </div>";
+    unset($_SESSION['info']);
+
+}
+?>
   <!-- orderAlert -->
   <div class='col-md-6 mx-auto mt-5' style="display: none;" id="alert">
     <div class='alert alert-primary alert-dismissible fade show' role='alert'>
 
-      <strong>Chyba objednávky: </strong> Zkontrolujte datum a vozidlo
+      <strong>Chyba objednávky: </strong> Zkontrolujte datum, vozidlo a důvod.
     </div>
   </div>
 
@@ -122,10 +140,14 @@ if (isset($_SESSION['admin'])) {
           <div class="card-body">
             <div class="card-text">
               <form action="db_user_order.php" id="order" method="POST">
-
+                <div class="form-group">
+                  <label for="date">Důvod: </label>
+                  <input type="text" name="zavada" id="zavada" class="form-control" placeholder="např.: Garanční prohlídka"
+                    required>
+                </div>
                 <div class="form-group">
                   <label for="date">Zvolte datum: </label>
-                  <input type="date" name="date" id="date" class="form-control" placeholder="" aria-describedby="helpId"
+                  <input type="date" name="date" id="date" class="form-control" placeholder=""
                     required>
                 </div>
                 <div class="form-group">
@@ -208,22 +230,22 @@ if (isset($_SESSION['admin'])) {
 
       $('#send').click(function () {
         var today = new Date();
-        if ($('#date').val() != "") {
+        if ($('#date').val() != "" && $('#zavada').val() != "") {
 
           if (($('#car').val() != "Vozidlo") && !($('#date').val() <= today.toISOString())) {
 
             $('#order').submit();
 
           } else {
-            $('#alert').slideDown(300,function(){
+            $('#alert').slideDown(300, function () {
               $('#alert').fadeOut(2500);
             });
-            
+
           }
         } else {
-          $('#alert').slideDown(300,function(){
-              $('#alert').fadeOut(2500);
-            });
+          $('#alert').slideDown(300, function () {
+            $('#alert').fadeOut(2500);
+          });
         }
 
       });

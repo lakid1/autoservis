@@ -1,7 +1,7 @@
 <?php
 require 'db_connect.php';
 
-$query = "SELECT * FROM typ_zasahu WHERE typ_zasahu_id != 1";
+$query = "SELECT typ_zasahu_id, nazev, cena FROM typ_zasahu WHERE valid = 0 AND typ_zasahu_id != 1;";
 
 $result = $conn->query($query);
 

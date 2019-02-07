@@ -76,6 +76,10 @@ if (isset($_SESSION['admin'])) {
                             required>
                     </div>
                     <div class="form-group col-md-3">
+                        <label for="zavada">Důvod</label>
+                        <input name="zavada" type="text" class="form-control" id="zavada" placeholder="volitelný...">
+                    </div>
+                    <div class="form-group col-md-3">
                         <label for="vozidlo">Vybrat vozidlo</label>
                         <input type="button" class="form-control btn btn-info" id="vozidlo" value="Žádné">
                     </div>
@@ -147,6 +151,7 @@ if (isset($_SESSION['admin'])) {
                             <th>Auto</th>
                             <th>Jméno</th>
                             <th>Telefon</th>
+                            <th>Důvod</th>
                             <th>Stav</th>
                         </tr>
                     </thead>
@@ -243,7 +248,9 @@ if (isset($_SESSION['admin'])) {
                     { "data": "auto" },
                     { "data": "provozovatel" },
                     { "data": "telefon" },
-                    { "data": "stav" },
+                    { "data": "zavada" },
+                    { "data": "stav" }
+                    
                 ],
                 "language": {
                     "decimal": "",

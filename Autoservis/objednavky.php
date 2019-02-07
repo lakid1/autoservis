@@ -13,11 +13,11 @@ if (isset($_SESSION['admin'])) {
 <html>
 
 <?php
-    require "db_connect.php";
+require "db_connect.php";
 
-    $query = "UPDATE servisni_objednavka SET stav = 'probíhá' WHERE datum < DATE(CURDATE()) AND ukonceno IS null";
-    $conn->query($query);
-    $conn->close();
+$query = "UPDATE servisni_objednavka SET stav = 'probíhá' WHERE datum < DATE(CURDATE()) AND ukonceno IS null";
+$conn->query($query);
+$conn->close();
 ?>
 
 <head>
@@ -84,6 +84,7 @@ if (isset($_SESSION['admin'])) {
                             <th>Datum</th>
                             <th>Provozovatel</th>
                             <th>Auto</th>
+                            <th>Důvod</th>
                             <th>Stav</th>
                         </tr>
                     </thead>
@@ -93,20 +94,25 @@ if (isset($_SESSION['admin'])) {
             </div>
         </div>
         <div class="row mt-5 mb-5">
-            <div class="col-md-3">
-                
-                <button id="add" class="btn btn-info form-group"><span><i class="fas fa-plus-circle"></i></span> Přidat záznamy
-                    k zásahu</button>
+
+            <div class="btn-group" role="group">
+                <div class="col-md-12">
+                    <button id="add" class="btn btn-info form-group"><span><i class="fas fa-plus-circle"></i></span>
+                        Přidat
+                        záznamy
+                        k zásahu</button>
+                    <button id="detail" class="btn btn-secondary form-group"><span><i class="fas fa-search"></i></span>
+                        Zobrazit
+                        detail</button>
+                    <button id="dokoncit" class="btn btn-success form-group"><span><i class="fas fa-check"></i></span>
+                        Dokončit
+                        objednávku</button>
+                    <button id="storno" class="btn btn-danger form-group">Storno</button>
+                </div>
             </div>
-            <div class="col-md-3">
-                <button id="dokoncit" class="btn btn-success form-group"><span><i class="fas fa-check"></i></span> Dokončit
-                    objednávku</button>
-            </div>
-            <div class="col-md-2">
-                <button id="storno" class="btn btn-danger form-group">Storno</button>
-            </div>
-            </div>
+
         </div>
+
     </div>
 
     <form id="updateStav" action="db_updateStav.php" method="POST">
@@ -115,6 +121,28 @@ if (isset($_SESSION['admin'])) {
         <input type="text" name="akce" id="akce" style="display: none !important;">
     </form>
 
+ <!-- Detail Modal -->
+ <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailModalTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div id="txtHint"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Modal -->
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true">
@@ -135,15 +163,15 @@ if (isset($_SESSION['admin'])) {
                                         <label for="servisakS">Servisak</label>
                                         <select class="form-control" id="servisakS">
                                             <?php
-                                                include 'db_connect.php';
-                                                $query = "SELECT servisak_id, CONCAT(jmeno,' ',prijmeni) as servisak FROM servisak;";
-                                                $result = $conn->query($query);
-                                                while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-                                                    echo "<option value=" . $row['servisak_id'] . ">" . $row['servisak'] . "</option>";
+include 'db_connect.php';
+$query = "SELECT servisak_id, CONCAT(jmeno,' ',prijmeni) as servisak FROM servisak WHERE valid = 0;";
+$result = $conn->query($query);
+while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+    echo "<option value=" . $row['servisak_id'] . ">" . $row['servisak'] . "</option>";
 
-                                                }
+}
 
-                                            ?>
+?>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -154,15 +182,15 @@ if (isset($_SESSION['admin'])) {
                                         <label for="selectType">Typ zásahu</label>
                                         <select class="form-control" id="selectType">
                                             <?php
-                                                include 'db_connect.php';
-                                                $query = "SELECT * FROM typ_zasahu;";
-                                                $result = $conn->query($query);
-                                                while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-                                                    echo "<option value=" . $row['cena'] . "/" . $row['typ_zasahu_id'] . ">" . $row['nazev'] . "</option>";
+include 'db_connect.php';
+$query = "SELECT typ_zasahu_id,nazev,cena FROM typ_zasahu WHERE valid = 0;";
+$result = $conn->query($query);
+while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+    echo "<option value=" . $row['cena'] . "/" . $row['typ_zasahu_id'] . ">" . $row['nazev'] . "</option>";
 
-                                                }
+}
 
-                                            ?>
+?>
                                         </select>
                                     </div>
                                     <div id="cenaB" class="form-group">
@@ -353,6 +381,33 @@ if (isset($_SESSION['admin'])) {
                 }
             });
 
+            $('#detail').click(function () {
+                if ($('#myTable tbody tr').hasClass('selected')) {
+                    var tr = table.$('tr.selected').closest('tr');
+                    var row = table.row(tr);
+                    var id = row.data().servisni_objednavka_id;
+
+                    $("#detailModal").modal('show');
+                    $('#detailModalTitle').text(row.data().datum + " / " + row.data().auto + " / " + row.data().provozovatel);
+                    showInformation(id);
+                }
+            });
+
+            function showInformation(row) {
+                if (window.XMLHttpRequest) {
+                    xmlhttp = new XMLHttpRequest();
+                } else {
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("txtHint").innerHTML = this.responseText;
+                    }
+                };
+                xmlhttp.open("GET", "db_getInfo.php?q=" + row, true);
+                xmlhttp.send();
+            }
+
             var table = $('#myTable').DataTable({
                 "ajax": "db_select_objednavky.php",
                 responsive: {
@@ -363,7 +418,8 @@ if (isset($_SESSION['admin'])) {
                     { "data": "datum" },
                     { "data": "provozovatel" },
                     { "data": "auto" },
-                    { "data": "stav" },
+                    { "data": "zavada" },
+                    { "data": "stav" }
 
                 ],
                 "language": {

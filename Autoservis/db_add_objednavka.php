@@ -10,10 +10,11 @@ if ($_POST) {
     $datum = $_POST['datum'];
     $provozovatel_id = $_POST['provozovatel'];
     $auto_id = $_POST['auto'];
+    $zavada = $_POST['zavada'];
 
     
 
-    $query = "INSERT INTO servisni_objednavka() VALUES(null,'$datum','přijato',null,$provozovatel_id,$auto_id);";
+    $query = "INSERT INTO servisni_objednavka() VALUES(null,'$datum','přijato',null,'$zavada',$provozovatel_id,$auto_id);";
 
     if ($conn->query($query) === true) {
         header("Location: dashboard.php");

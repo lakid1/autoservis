@@ -69,7 +69,7 @@ if (isset($_SESSION['admin'])) {
                 <nav id="myTab">
                     <div class="nav nav-tabs" id="nav-tab">
                         <a class="nav-item nav-link active" id="nav-zasahy-tab" href="#zasahy">Typy zásahů</a>
-                        <a class="nav-item nav-link" id="nav-servisak-tab" href="#nav-servisak">Servisáci</a>
+                        <a class="nav-item nav-link" id="nav-servisak-tab" href="#nav-servisak">Servisní pracovníci</a>
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
