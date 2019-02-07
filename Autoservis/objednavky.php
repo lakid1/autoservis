@@ -160,7 +160,7 @@ $conn->close();
                             <div class="col-md-12">
                                 <form id="formAddRadek" action="db_add_radek_objednavka.php" method="POST">
                                     <div class="form-group">
-                                        <label for="servisakS">Servisak</label>
+                                        <label for="servisakS">Servisní pracovník</label>
                                         <select class="form-control" id="servisakS">
                                             <?php
 include 'db_connect.php';

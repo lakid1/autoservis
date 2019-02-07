@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2019 at 05:55 PM
+-- Generation Time: Feb 07, 2019 at 05:07 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.0
 
@@ -41,7 +41,7 @@ CREATE TABLE `adresa` (
 --
 
 INSERT INTO `adresa` (`adresa_id`, `ulice`, `cislo_popisne`, `mesto`, `psc`) VALUES
-(1, 'admin', 'admin', 'admin', 0);
+(1, 'main', 'main', 'main', 0);
 
 -- --------------------------------------------------------
 
@@ -100,16 +100,17 @@ INSERT INTO `provozovatel` (`provozovatel_id`, `firma`, `jmeno`, `prijmeni`, `te
 CREATE TABLE `servisak` (
   `servisak_id` int(11) NOT NULL,
   `jmeno` varchar(45) COLLATE utf8_czech_ci NOT NULL,
-  `prijmeni` varchar(45) COLLATE utf8_czech_ci NOT NULL
+  `prijmeni` varchar(45) COLLATE utf8_czech_ci NOT NULL,
+  `valid` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 --
 -- Dumping data for table `servisak`
 --
 
-INSERT INTO `servisak` (`servisak_id`, `jmeno`, `prijmeni`) VALUES
-(1, 'Pepa', 'Vepřek'),
-(2, 'Franta', 'Popleta');
+INSERT INTO `servisak` (`servisak_id`, `jmeno`, `prijmeni`, `valid`) VALUES
+(1, 'Pepa', 'Vepřek', 0),
+(2, 'Franta', 'Popleta', 0);
 
 -- --------------------------------------------------------
 
@@ -122,10 +123,10 @@ CREATE TABLE `servisni_objednavka` (
   `datum` date NOT NULL,
   `stav` varchar(10) COLLATE utf8_czech_ci NOT NULL DEFAULT 'přijata',
   `ukonceno` date DEFAULT NULL,
+  `zavada` varchar(255) COLLATE utf8_czech_ci DEFAULT NULL,
   `provozovatel_id` int(11) NOT NULL,
   `auto_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
-
 
 -- --------------------------------------------------------
 
@@ -142,10 +143,6 @@ CREATE TABLE `servisni_objednavka_radky` (
   `servisak_id` int(11) NOT NULL,
   `servisni_objednavka_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
-
---
--- Dumping data for table `servisni_objednavka_radky`
---
 
 -- --------------------------------------------------------
 
@@ -169,17 +166,18 @@ CREATE TABLE `tokens` (
 CREATE TABLE `typ_zasahu` (
   `typ_zasahu_id` int(11) NOT NULL,
   `nazev` varchar(45) COLLATE utf8_czech_ci NOT NULL,
-  `cena` int(11) NOT NULL
+  `cena` int(11) NOT NULL,
+  `valid` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 --
 -- Dumping data for table `typ_zasahu`
 --
 
-INSERT INTO `typ_zasahu` (`typ_zasahu_id`, `nazev`, `cena`) VALUES
-(1, 'jiné', 0),
-(2, 'Výměna pneumatik', 500),
-(3, 'Výměna filtru', 600);
+INSERT INTO `typ_zasahu` (`typ_zasahu_id`, `nazev`, `cena`, `valid`) VALUES
+(1, 'jiné', 0, 0),
+(2, 'Výměna pneumatik', 500, 0),
+(3, 'Výměna filtru', 600, 0);
 
 --
 -- Indexes for dumped tables
@@ -273,19 +271,19 @@ ALTER TABLE `servisak`
 -- AUTO_INCREMENT for table `servisni_objednavka`
 --
 ALTER TABLE `servisni_objednavka`
-  MODIFY `servisni_objednavka_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `servisni_objednavka_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `servisni_objednavka_radky`
 --
 ALTER TABLE `servisni_objednavka_radky`
-  MODIFY `servisni_objednavka_radky_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `servisni_objednavka_radky_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tokens`
 --
 ALTER TABLE `tokens`
-  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `typ_zasahu`
