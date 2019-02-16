@@ -3,7 +3,7 @@ require "db_connect.php";
 
 function randomPassword()
 {
-    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?";
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_+.";
     $pass = array();
     $lenght = strlen($chars) - 1;
     for ($i = 0; $i < 8; $i++) {

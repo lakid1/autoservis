@@ -14,13 +14,13 @@ while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
 
 }
 header("Content-Type: application/json");
-if (json_encode($data) != null) {
+if (empty($data) != true) {
 
     $output = '{"data":' . json_encode($data) . '}';
 
 } else {
     $output = '{"data": [
-      
+       
     ]}';
 }
 echo $output;

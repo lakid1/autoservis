@@ -177,12 +177,12 @@ if (isset($_SESSION['admin'])) {
           if (newP.val() == newPC.val()) {
             return;
           } else {
-            $('#alertText').text("Zadaná hesla se neschodují");
+            $('#alertText').text("Zadaná hesla se neshodují");
             $('#alertInfo').slideDown(300);
             event.preventDefault();
           }
         } else {
-          $('#alertText').text("Heslo misí být minálně 7 znaků dlouhé");
+          $('#alertText').text("Heslo musí být minimálně 7 znaků dlouhé");
           $('#alertInfo').slideDown(300);
           event.preventDefault();
         }

@@ -19,7 +19,7 @@ if ($db_password == $old && $db_password != $new) {
     $conn->query($query);
     $_SESSION['info'] = "Heslo bylo úspěšně změněno.";
 } else {
-    $_SESSION['info'] = "Zadali jste špatné heslo nebo se Vaše nové heslo schoduje se starým.";
+    $_SESSION['info'] = "Zadali jste špatné heslo nebo se Vaše nové heslo shoduje se starým.";
 }
 
 header("Location: userProfile.php");

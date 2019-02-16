@@ -114,8 +114,8 @@ if (isset($_SESSION['info2'])) {
                                 required>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="motor">Motor</label>
-                            <input name="motor" type="text" class="form-control" id="motor" placeholder="Motor"
+                            <label for="motor">VIN</label>
+                            <input name="motor" type="text" class="form-control" id="motor" placeholder="VIN"
                                 required>
                         </div>
                         <div class="form-group col-md-2">
@@ -176,7 +176,7 @@ if (isset($_SESSION['info2'])) {
                             <th>Značka</th>
                             <th>Model</th>
                             <th>Rok výroby</th>
-                            <th>Motor</th>
+                            <th>VIN</th>
                         </tr>
                     </thead>
                     <tbody>
