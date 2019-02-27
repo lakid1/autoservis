@@ -6,14 +6,14 @@ if ($_POST) {
         $nazev = $_POST['nazev'];
         $cena = $_POST['cena'];
 
-        $query = "INSERT INTO typ_zasahu() VALUES(null,'$nazev',$cena)";
+        $query = "INSERT INTO typ_zasahu() VALUES(null,'$nazev',$cena,0)";
 
     } else {
 
         $jmeno = $_POST['jmeno'];
         $prijmeni = $_POST['prijmeni'];
 
-        $query = "INSERT INTO servisak() VALUES(null,'$jmeno','$prijmeni')";
+        $query = "INSERT INTO servisak() VALUES(null,'$jmeno','$prijmeni',0)";
 
     }
     if ($conn->query($query) === true) {

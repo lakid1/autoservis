@@ -85,7 +85,7 @@ if ($_POST) {
     $query = "INSERT INTO provozovatel(firma,jmeno,prijmeni,telefon,email,password,adresa_id) VALUES('$firma','$jmeno','$prijmeni','$telefon','$email','$hesloMd5','$last_id')";
 
     if ($conn->query($query) === true) {
-        require "mailSender/secure_email_code.php";
+        require "mailSender/registrace.php";
     } else {
         echo "Error: " . $query . "<br>" . $conn->connect_error;
     }

@@ -15,9 +15,12 @@
 <body>
     <div class="container">
         <?php
-        session_start();
-        if(isset($_SESSION['info'])){
-            echo"<div class='row'>
+session_start();
+
+
+
+if (isset($_SESSION['info'])) {
+    echo "<div class='row'>
                     <div class='col-md-6 mx-auto mt-5'>
                         <div class='alert alert-primary alert-dismissible fade show' role='alert'>
                             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
@@ -28,12 +31,12 @@
                         </div>
                     </div>
             </div>";
-            unset($_SESSION['info']);
-            
-        }
-        session_destroy();
-        
-        ?>
+    unset($_SESSION['info']);
+    
+}
+session_destroy();
+
+?>
         <div class="row">
             <div class="col-md-6 mx-auto mt-5">
                 <div class="card border">

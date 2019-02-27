@@ -203,6 +203,7 @@ if (isset($_SESSION['admin'])) {
 
             $('#logoutBtn').click(function () {
                 sessionStorage.clear();
+                
                 window.location.replace("login.php");
             });
 
